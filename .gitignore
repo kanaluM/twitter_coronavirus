@@ -1,3 +1,7 @@
+# I don't think we need to upload all of the outputs from the code
+nohup.out
+outputs/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

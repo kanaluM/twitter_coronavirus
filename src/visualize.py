@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+# plotting tools
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 # command line args
 import argparse
 parser = argparse.ArgumentParser()
@@ -18,11 +23,27 @@ with open(args.input_path) as f:
     counts = json.load(f)
 
 # normalize the counts by the total values
-if args.percent:
-    for k in counts[args.key]:
-        counts[args.key][k] /= counts['_all'][k]
+# if args.percent:
+#    for k in counts[args.key]:
+#        counts[args.key][k] /= counts['_all'][k]
 
 # print the count values
-items = sorted(counts[args.key].items(), key=lambda item: (item[1],item[0]), reverse=True)
-for k,v in items:
-    print(k,':',v)
+# items = sorted(counts[args.key].items(), key=lambda item: (item[1],item[0]), reverse=True)
+# for k,v in items:
+#    print(k,':',v)
+
+
+# stuff I added to generate plots
+category = "country" if args.input_path == "reduced.country" else "language"
+
+L = [(counts[args.key][k], k) for k in counts[args.key]]
+L.sort(reverse=True)
+y,x = list(zip(*L[:10]))
+
+fig = plt.figure(figsize = (10, 5))
+plt.bar(x, y, color ='maroon', width = 0.8)
+plt.xlabel(f"{category.capitalize()}")
+plt.ylabel(f"Number of {args.key} Tweets")
+plt.title(f"{args.key} Tweets in 2020 by {category.capitalize()}")
+fig.savefig(f"{category}_{args.key}.png")
+plt.close(fig)
