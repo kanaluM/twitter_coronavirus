@@ -35,15 +35,16 @@ with open(args.input_path) as f:
 
 # stuff I added to generate plots
 category = "country" if args.input_path == "reduced.country" else "language"
+language = "English" if args.key == "#coronavirus" else "Korean"
 
 L = [(counts[args.key][k], k) for k in counts[args.key]]
-L.sort(reverse=True)
+L.sort(reverse=True, key=lambda x: x[0])
 y,x = list(zip(*L[:10]))
 
 fig = plt.figure(figsize = (10, 5))
 plt.bar(x, y, color ='maroon', width = 0.8)
 plt.xlabel(f"{category.capitalize()}")
-plt.ylabel(f"Number of {args.key} Tweets")
-plt.title(f"{args.key} Tweets in 2020 by {category.capitalize()}")
-fig.savefig(f"{category}_{args.key}.png")
+plt.ylabel(f"Number of Tweets")
+plt.title(f"#coronavirus ({language}) Tweets in 2020 by {category.capitalize()}")
+fig.savefig(f"{category}_{language}.png")
 plt.close(fig)
