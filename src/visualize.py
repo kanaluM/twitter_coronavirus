@@ -39,10 +39,11 @@ language = "English" if args.key == "#coronavirus" else "Korean"
 
 L = [(counts[args.key][k], k) for k in counts[args.key]]
 L.sort(reverse=True, key=lambda x: x[0])
-y,x = list(zip(*L[:10]))
+x = [e[1] for e in L[:10]]
+y = [e[0] for e in L[:10]]
 
 fig = plt.figure(figsize = (10, 5))
-plt.bar(list(x), list(y), color ='maroon', width = 0.8)
+plt.bar(x, y, color ='maroon', width = 0.8)
 plt.xlabel(f"{category.capitalize()}")
 plt.ylabel(f"Number of Tweets")
 plt.title(f"#coronavirus ({language}) Tweets in 2020 by {category.capitalize()}")
