@@ -42,7 +42,7 @@ L.sort(reverse=True, key=lambda x: x[0])
 y,x = list(zip(*L[:10]))
 
 fig = plt.figure(figsize = (10, 5))
-plt.bar(x, y, color ='maroon', width = 0.8)
+plt.bar(list(x), list(y), color ='maroon', width = 0.8)
 plt.xlabel(f"{category.capitalize()}")
 plt.ylabel(f"Number of Tweets")
 plt.title(f"#coronavirus ({language}) Tweets in 2020 by {category.capitalize()}")
