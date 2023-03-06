@@ -3,6 +3,8 @@
 # plotting tools
 import matplotlib
 matplotlib.use('Agg')
+import matplotlib.font_manager as fm
+kr = fm.FontProperties(fname='./src/NotoSansKR-Black.otf')
 import matplotlib.pyplot as plt
 
 # command line args
@@ -47,6 +49,9 @@ plt.bar(range(len(x)), y, color ='maroon', width = 0.8)
 plt.xticks(range(len(x)), x)
 plt.xlabel(f"{category.capitalize()}")
 plt.ylabel(f"Number of Tweets")
-plt.title(f"{args.key} Tweets in 2020 by {category.capitalize()}", family=['DejaVu Sans', 'WenQuanYi Zen Hei', 'Noto Sans CJK'])
+if language == "English":
+    plt.title(f"{args.key} Tweets in 2020 by {category.capitalize()}")
+else:
+    plt.title(f"{args.key} Tweets in 2020 by {category.capitalize()}", fontproperties=kr)
 fig.savefig(f"{category}_{language}.png")
 plt.close(fig)
